@@ -52,7 +52,7 @@
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       background: var(--bg);
-      z-index: 9999;
+      z-index: 99999;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -68,7 +68,7 @@
       text-align: center;
       box-shadow: var(--shadow-md);
     }
-    .lock-icon { font-size: 40px; margin-bottom: 12px; }
+    .lock-icon { font-size: 44px; margin-bottom: 12px; }
     .lock-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
     .lock-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
     .lock-input {
@@ -78,11 +78,11 @@
       background: var(--bg);
       color: var(--text-main);
       border-radius: 8px;
-      font-size: 18px;
+      font-size: 20px;
       text-align: center;
       letter-spacing: 4px;
       outline: none;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
     .lock-input:focus { border-color: var(--accent-pink); }
     .lock-btn {
@@ -95,8 +95,10 @@
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
+      margin-bottom: 10px;
     }
-    .lock-error { color: #EF4444; font-size: 12px; margin-top: 8px; display: none; }
+    .lock-error { color: #EF4444; font-size: 13px; font-weight: 600; margin-bottom: 10px; display: none; }
+    .hint-text { font-size: 12px; color: var(--text-muted); }
 
     header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
     .header-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; font-size: 12px; font-weight: 600; color: var(--accent-pink); margin-bottom: 8px; }
@@ -187,10 +189,10 @@
       <div class="lock-icon">🔒</div>
       <div class="lock-title">Private Progress Tracker</div>
       <div class="lock-sub">Please enter your PIN to access this tracker</div>
-      <input type="password" id="pinInput" class="lock-input" placeholder="••••" maxlength="10" onkeydown="if(event.key==='Enter') verifyPin()">
-      <button class="lock-btn" onclick="verifyPin()">Unlock</button>
       <div class="lock-error" id="lockError">Incorrect PIN. Please try again.</div>
-      <div style="font-size: 11px; color: var(--text-muted); margin-top: 16px;">(Default PIN: 2026)</div>
+      <input type="password" id="pinInput" class="lock-input" placeholder="••••" maxlength="10" autocomplete="current-password">
+      <button type="button" class="lock-btn" id="unlockButton" onclick="verifyPin()">Unlock</button>
+      <div class="hint-text">(Default PIN: 2026)</div>
     </div>
   </div>
 
@@ -322,7 +324,4 @@
     <div class="modal-card">
       <h2>Profile & Privacy Settings</h2>
       <div class="form-group">
-        <label>Learner Name</label>
-        <input type="text" id="inputName" placeholder="e.g. Danaiporn Suktarom">
-      </div>
-      <div class="form-
+        <label>Learner
