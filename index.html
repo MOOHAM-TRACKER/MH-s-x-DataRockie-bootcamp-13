@@ -47,6 +47,584 @@
     body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background-color: var(--bg); color: var(--text-main); line-height: 1.5; padding: 40px 20px 80px; }
     .container { max-width: 960px; margin: 0 auto; }
     
+    header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
+    .header-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; font-size: 12px; font-weight: 600; color: var(--accent-pink); margin-bottom: 8px; }
+    .header-badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-pink); }
+    h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .subtitle { color: var(--text-muted); font-size: 15px; line-height: 1.6; }
+    .theme-toggle-btn { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main); padding: 8px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow-sm); }
+    
+    .profile-banner { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 24px; box-shadow: var(--shadow-sm); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .profile-info { display: flex; align-items: center; gap: 14px; }
+    .profile-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #FF2D75, #F59E0B); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; }
+    .profile-details h3 { font-size: 16px; font-weight: 700; }
+    .profile-details p { font-size: 13px; color: var(--text-muted); }
+    .profile-btn { background: var(--text-main); color: var(--bg); border: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    
+    .stacking-gauge-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 20px; margin-bottom: 24px; box-shadow: var(--shadow-sm); }
+    .gauge-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .gauge-title { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .level-badge { background: var(--accent-yellow-bg); color: var(--accent-yellow); border: 1px solid var(--accent-yellow); padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 16px; }
+    .stat-item { padding: 12px; background: var(--bg); border-radius: 10px; border: 1px solid var(--card-border); }
+    .stat-num { font-size: 26px; font-weight: 800; line-height: 1.2; }
+    .stat-label { font-size: 12px; color: var(--text-muted); font-weight: 500; margin-top: 2px; }
+    .progress-track { width: 100%; height: 12px; background: var(--toggle-bg); border-radius: 10px; overflow: hidden; margin-top: 10px; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-pink), var(--accent-yellow), var(--accent-green)); border-radius: 10px; transition: width 0.4s ease; }
+    
+    .matrix-section { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 20px; margin-bottom: 24px; box-shadow: var(--shadow-sm); overflow-x: auto; }
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .section-title { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .matrix-legend { display: flex; gap: 14px; font-size: 12px; color: var(--text-muted); }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .legend-box { width: 12px; height: 12px; border-radius: 3px; }
+    .legend-completed { background: var(--text-main); }
+    .legend-active { background: var(--accent-pink); }
+    .legend-pending { background: var(--toggle-bg); border: 1px solid var(--card-border); }
+    .matrix-table { width: 100%; min-width: 760px; border-collapse: separate; border-spacing: 5px; }
+    .matrix-table th { font-size: 11px; font-weight: 600; color: var(--text-muted); padding-bottom: 6px; text-align: center; }
+    .matrix-month-header { font-size: 12px; font-weight: 700; color: var(--text-main); padding: 6px 0; border-bottom: 2px solid var(--card-border); text-align: center; }
+    .row-label { font-size: 12px; font-weight: 600; color: var(--text-muted); text-align: left !important; padding-right: 12px; white-space: nowrap; width: 80px; }
+    .matrix-node { width: 32px; height: 32px; border-radius: 6px; background: var(--toggle-bg); border: 1px solid var(--card-border); display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--text-muted); cursor: pointer; user-select: none; }
+    .matrix-node:hover { transform: scale(1.08); border-color: var(--accent-pink); }
+    .matrix-node.completed { background: var(--text-main); color: var(--bg); border-color: var(--text-main); }
+    .matrix-node.next-target { border: 2px solid var(--accent-pink); color: var(--accent-pink); background: rgba(255, 45, 117, 0.1); }
+    
+    .checklist-section { margin-top: 32px; }
+    .filter-bar { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .filter-btn { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-muted); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; }
+    .filter-btn.active { background: var(--text-main); color: var(--bg); border-color: var(--text-main); font-weight: 600; }
+    .month-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow-sm); }
+    .month-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--card-border); }
+    .month-title { font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .month-badge { font-size: 12px; padding: 2px 8px; border-radius: 6px; background: var(--bg); border: 1px solid var(--card-border); color: var(--text-muted); font-weight: 600; }
+    .class-list { display: flex; flex-direction: column; gap: 10px; }
+    .class-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-radius: 8px; background: var(--bg); border: 1px solid var(--card-border); flex-wrap: wrap; gap: 12px; }
+    .class-item.is-done { opacity: 0.75; background: transparent; }
+    .class-item.is-done .class-name { text-decoration: line-through; color: var(--text-muted); }
+    .class-item.is-current { border: 1.5px solid var(--accent-pink); background: rgba(255, 45, 117, 0.03); }
+    .class-left { display: flex; align-items: center; gap: 14px; min-width: 280px; flex: 1; }
+    .class-date { font-size: 12px; font-weight: 700; color: var(--accent-pink); width: 55px; flex-shrink: 0; }
+    .class-details { display: flex; flex-direction: column; gap: 2px; }
+    .class-name { font-size: 15px; font-weight: 600; }
+    .class-tag { display: inline-block; font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: 600; background: rgba(37, 99, 235, 0.1); color: var(--accent-blue); align-self: flex-start; }
+    .class-actions { display: flex; align-items: center; gap: 8px; }
+    .toggle-btn { width: 38px; height: 34px; border-radius: 6px; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-muted); font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+    .toggle-btn:hover { border-color: var(--text-main); }
+    .toggle-btn.active { background: var(--text-main); color: var(--bg); border-color: var(--text-main); }
+    
+    footer { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--text-muted); }
+    .footer-actions { display: flex; gap: 10px; }
+    .btn-outline { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main); padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 100; align-items: center; justify-content: center; }
+    .modal-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 24px; width: 100%; max-width: 440px; box-shadow: var(--shadow-md); }
+    .modal-card h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .form-group input { width: 100%; padding: 10px 12px; border: 1px solid var(--card-border); background: var(--bg); color: var(--text-main); border-radius: 8px; font-size: 14px; outline: none; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+    .btn-secondary { background: var(--toggle-bg); color: var(--text-main); border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div>
+        <div class="header-badge">LIVE BATCH 13 • SKILL STACKING</div>
+        <h1>Data Science Bootcamp 13</h1>
+        <p class="subtitle">16 Classes (Sep 5 – Dec 12, 2026) • Key Rule: Complete the worksheet by Sunday after each live session to build Skill Stacking toward The Modern Generalist.</p>
+      </div>
+      <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()">
+        <span id="themeIcon">🌙</span> <span id="themeText">Dark</span>
+      </button>
+    </header>
+
+    <div class="profile-banner">
+      <div class="profile-info">
+        <div class="profile-avatar" id="avatarLetter">D</div>
+        <div class="profile-details">
+          <h3 id="profileNameDisplay">Danaiporn Suktarom</h3>
+          <p id="profileGoalDisplay">Goal: Combine AI + Data + Research to build a Pro Generalist advantage</p>
+        </div>
+      </div>
+      <button class="profile-btn" onclick="openProfileModal()">Profile Settings</button>
+    </div>
+
+    <div class="stacking-gauge-card">
+      <div class="gauge-top">
+        <div class="gauge-title">
+          <span>⚡ Skill Stacking Level</span>
+          <span class="level-badge" id="levelBadge">Level 1 • Apprentice</span>
+        </div>
+        <span style="font-size: 13px; font-weight: 700; color: var(--accent-pink);" id="statusBadge">On Track • No Pending Worksheets</span>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-num" id="liveCount">0/16</div>
+          <div class="stat-label">Live Sessions Attended (L)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" id="wsCount">0/16</div>
+          <div class="stat-label">Worksheets Submitted (W)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" id="practiceCount">0/16</div>
+          <div class="stat-label">Practice Completed (P)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" id="percentDisplay">0%</div>
+          <div class="stat-label">Overall Completion Rate</div>
+        </div>
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <div class="matrix-section">
+      <div class="section-header">
+        <div class="section-title">
+          <span>📊 Activity Matrix Grid (16 Classes)</span>
+        </div>
+        <div class="matrix-legend">
+          <div class="legend-item"><div class="legend-box legend-completed"></div> Completed</div>
+          <div class="legend-item"><div class="legend-box legend-active"></div> Current Target</div>
+          <div class="legend-item"><div class="legend-box legend-pending"></div> Pending</div>
+        </div>
+      </div>
+
+      <table class="matrix-table" id="matrixTable">
+        <thead>
+          <tr>
+            <th></th>
+            <th colspan="5" class="matrix-month-header">September</th>
+            <th colspan="5" class="matrix-month-header">October</th>
+            <th colspan="4" class="matrix-month-header">November</th>
+            <th colspan="2" class="matrix-month-header">December</th>
+          </tr>
+          <tr id="matrixColHeaders">
+            <th class="row-label">Track</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="liveRow"><td class="row-label">Live (L)</td></tr>
+          <tr id="wsRow"><td class="row-label">Worksheet (W)</td></tr>
+          <tr id="practiceRow"><td class="row-label">Practice (P)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="checklist-section">
+      <div class="section-header">
+        <div class="section-title">
+          <span>📝 Class Checklist</span>
+        </div>
+        <div style="font-size: 13px; color: var(--text-muted);">
+          <strong>L</strong>: Live Attended | <strong>W</strong>: Worksheet Submitted | <strong>P</strong>: Hands-on Practice
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterClasses('all', this)">All (16)</button>
+        <button class="filter-btn" onclick="filterClasses('pending', this)">Pending Worksheets</button>
+        <button class="filter-btn" onclick="filterClasses('completed', this)">Completed</button>
+      </div>
+
+      <div id="monthsContainer"></div>
+    </div>
+
+    <footer>
+      <div>Data Science Bootcamp 13 • Skill Stacking Tracker</div>
+      <div class="footer-actions">
+        <button class="btn-outline" onclick="exportData()">Export Data (JSON)</button>
+        <button class="btn-outline" onclick="importData()">Import Data</button>
+        <button class="btn-outline" onclick="resetData()" style="color: #EF4444;">Reset</button>
+      </div>
+    </footer>
+  </div>
+
+  <div class="modal-overlay" id="profileModal">
+    <div class="modal-card">
+      <h2>Profile Settings</h2>
+      <div class="form-group">
+        <label>Learner Name</label>
+        <input type="text" id="inputName" placeholder="e.g. Danaiporn Suktarom">
+      </div>
+      <div class="form-group">
+        <label>Worksheet Target Goal (Default: 16)</label>
+        <input type="number" id="inputGoal" value="16">
+      </div>
+      <div class="form-group">
+        <label>Post-Course Goal / Vision</label>
+        <input type="text" id="inputPostGoal" placeholder="e.g. Build personal dashboards & medical research pipelines">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeProfileModal()">Cancel</button>
+        <button class="profile-btn" onclick="saveProfile()">Save Profile</button>
+      </div>
+    </div>
+  </div>
+
+  <input type="file" id="importFileInput" style="display: none;" accept=".json" onchange="handleFileSelect(event)">
+
+  <script>
+    const CLASSES = [
+      { id: 1, date: "Sep 05", title: "1. Intro to Data Science", tag: "Data Literacy", month: "September", replay: true },
+      { id: 2, date: "Sep 06", title: "2. AI Foundation", tag: "AI & LLM", month: "September", replay: true },
+      { id: 3, date: "Sep 12", title: "3. Building a Second Brain", tag: "PKM & Thinking", month: "September", current: true },
+      { id: 4, date: "Sep 19", title: "4. Spreadsheets", tag: "Data Analysis", month: "September" },
+      { id: 5, date: "Sep 26", title: "5. SQL Database", tag: "Database & Query", month: "September" },
+      { id: 6, date: "Oct 03", title: "6. Google Looker Studio", tag: "BI & Dashboard", month: "October" },
+      { id: 7, date: "Oct 10", title: "7. R Programming", tag: "Programming Core", month: "October" },
+      { id: 8, date: "Oct 17", title: "8. Data Transformation", tag: "Data Wrangling", month: "October" },
+      { id: 9, date: "Oct 24", title: "9. Data Visualization", tag: "Storytelling", month: "October" },
+      { id: 10, date: "Oct 31", title: "10. Building Traffic (Web + SEO)", tag: "Web & Growth", month: "October" },
+      { id: 11, date: "Nov 07", title: "11. Essential Statistics", tag: "Inferential Stats", month: "November" },
+      { id: 12, date: "Nov 14", title: "12. AI + Automating Your Work", tag: "AI Automation", month: "November" },
+      { id: 13, date: "Nov 21", title: "13. Essential Machine Learning", tag: "Machine Learning", month: "November" },
+      { id: 14, date: "Nov 28", title: "14. Python Programming", tag: "Python Core", month: "November" },
+      { id: 15, date: "Dec 05", title: "15. Essential Python for Data Analyst", tag: "Advanced Analytics", month: "December" },
+      { id: 16, date: "Dec 12", title: "16. Becoming Pro Generalist", tag: "Pro Generalist", month: "December" }
+    ];
+
+    const MONTHS = [
+      { name: "September", key: "September" },
+      { name: "October", key: "October" },
+      { name: "November", key: "November" },
+      { name: "December", key: "December" }
+    ];
+
+    let state = {
+      profile: {
+        name: "Danaiporn Suktarom",
+        goal: 16,
+        postGoal: "Combine AI + Data + Research to build a Pro Generalist advantage"
+      },
+      progress: {},
+      theme: "light",
+      currentFilter: "all"
+    };
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem("bootcamp13_tracker_state");
+        if (saved) {
+          state = JSON.parse(saved);
+        }
+      } catch (e) {
+        console.error("Storage load error:", e);
+      }
+      
+      if (!state.profile) {
+        state.profile = { name: "Danaiporn Suktarom", goal: 16, postGoal: "" };
+      }
+      
+      applyTheme(state.theme || "light");
+      updateProfileDisplay();
+      renderMatrix();
+      renderChecklist();
+      updateMetrics();
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem("bootcamp13_tracker_state", JSON.stringify(state));
+      } catch (e) {
+        console.error("Storage save error:", e);
+      }
+      renderMatrix();
+      renderChecklist();
+      updateMetrics();
+    }
+
+    function toggleTheme() {
+      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      applyTheme(next);
+      state.theme = next;
+      saveState();
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      const icon = document.getElementById("themeIcon");
+      const text = document.getElementById("themeText");
+      if (icon) icon.textContent = theme === "dark" ? "☀️" : "🌙";
+      if (text) text.textContent = theme === "dark" ? "Light" : "Dark";
+    }
+
+    function toggleTask(id, type) {
+      if (!state.progress[id]) {
+        state.progress[id] = { l: false, w: false, p: false };
+      }
+      state.progress[id][type] = !state.progress[id][type];
+      saveState();
+    }
+
+    function updateMetrics() {
+      let lDone = 0, wDone = 0, pDone = 0;
+      CLASSES.forEach(c => {
+        const p = state.progress[c.id] || {};
+        if (p.l) lDone++;
+        if (p.w) wDone++;
+        if (p.p) pDone++;
+      });
+
+      const liveEl = document.getElementById("liveCount");
+      const wsEl = document.getElementById("wsCount");
+      const practiceEl = document.getElementById("practiceCount");
+      if (liveEl) liveEl.textContent = `${lDone}/16`;
+      if (wsEl) wsEl.textContent = `${wDone}/16`;
+      if (practiceEl) practiceEl.textContent = `${pDone}/16`;
+
+      const target = state.profile.goal || 16;
+      const pct = Math.round((wDone / target) * 100);
+      const pctEl = document.getElementById("percentDisplay");
+      const fillEl = document.getElementById("progressFill");
+      if (pctEl) pctEl.textContent = `${pct}%`;
+      if (fillEl) fillEl.style.width = `${Math.min(pct, 100)}%`;
+
+      const levelEl = document.getElementById("levelBadge");
+      if (levelEl) {
+        if (wDone >= 14) {
+          levelEl.textContent = "Level 4 • Pro Generalist";
+          levelEl.style.background = "#D1FAE5";
+          levelEl.style.color = "#065F46";
+        } else if (wDone >= 10) {
+          levelEl.textContent = "Level 3 • Data Practitioner";
+          levelEl.style.background = "#DBEAFE";
+          levelEl.style.color = "#1E40AF";
+        } else if (wDone >= 5) {
+          levelEl.textContent = "Level 2 • Skill Stacker";
+          levelEl.style.background = "#FEF3C7";
+          levelEl.style.color = "#92400E";
+        } else {
+          levelEl.textContent = "Level 1 • Apprentice";
+          levelEl.style.background = "var(--accent-yellow-bg)";
+          levelEl.style.color = "var(--accent-yellow)";
+        }
+      }
+
+      const statusEl = document.getElementById("statusBadge");
+      if (statusEl) {
+        if (wDone >= 2) {
+          statusEl.textContent = "⚡ Great momentum, keep up the streak!";
+          statusEl.style.color = "var(--accent-green)";
+        } else {
+          statusEl.textContent = "On Track • No Pending Worksheets 🚀";
+          statusEl.style.color = "var(--accent-pink)";
+        }
+      }
+    }
+
+    function renderMatrix() {
+      const colHeaders = document.getElementById("matrixColHeaders");
+      const liveRow = document.getElementById("liveRow");
+      const wsRow = document.getElementById("wsRow");
+      const practiceRow = document.getElementById("practiceRow");
+      if (!colHeaders || !liveRow || !wsRow || !practiceRow) return;
+
+      colHeaders.innerHTML = '<th class="row-label">Track</th>';
+      liveRow.innerHTML = '<td class="row-label">Live (L)</td>';
+      wsRow.innerHTML = '<td class="row-label">Worksheet (W)</td>';
+      practiceRow.innerHTML = '<td class="row-label">Practice (P)</td>';
+
+      CLASSES.forEach(c => {
+        const th = document.createElement("th");
+        th.textContent = c.id;
+        colHeaders.appendChild(th);
+
+        const p = state.progress[c.id] || {};
+
+        const tdL = document.createElement("td");
+        const nodeL = document.createElement("div");
+        nodeL.className = `matrix-node ${p.l ? 'completed' : ''} ${c.current ? 'next-target' : ''}`;
+        nodeL.textContent = p.l ? "✓" : "L";
+        nodeL.onclick = () => toggleTask(c.id, 'l');
+        tdL.appendChild(nodeL);
+        liveRow.appendChild(tdL);
+
+        const tdW = document.createElement("td");
+        const nodeW = document.createElement("div");
+        nodeW.className = `matrix-node ${p.w ? 'completed' : ''}`;
+        nodeW.textContent = p.w ? "✓" : "W";
+        nodeW.onclick = () => toggleTask(c.id, 'w');
+        tdW.appendChild(nodeW);
+        wsRow.appendChild(tdW);
+
+        const tdP = document.createElement("td");
+        const nodeP = document.createElement("div");
+        nodeP.className = `matrix-node ${p.p ? 'completed' : ''}`;
+        nodeP.textContent = p.p ? "✓" : "P";
+        nodeP.onclick = () => toggleTask(c.id, 'p');
+        tdP.appendChild(nodeP);
+        practiceRow.appendChild(tdP);
+      });
+    }
+
+    function renderChecklist() {
+      const container = document.getElementById("monthsContainer");
+      if (!container) return;
+      container.innerHTML = "";
+
+      MONTHS.forEach(m => {
+        const classesInMonth = CLASSES.filter(c => c.month === m.key);
+        let monthWsDone = 0;
+        classesInMonth.forEach(c => {
+          if (state.progress[c.id]?.w) monthWsDone++;
+        });
+
+        const visibleClasses = classesInMonth.filter(c => {
+          const p = state.progress[c.id] || {};
+          if (state.currentFilter === "pending") return !p.w;
+          if (state.currentFilter === "completed") return p.l && p.w;
+          return true;
+        });
+
+        if (visibleClasses.length === 0 && state.currentFilter !== "all") return;
+
+        const monthCard = document.createElement("div");
+        monthCard.className = "month-card";
+
+        monthCard.innerHTML = `
+          <div class="month-header">
+            <div class="month-title">
+              <span>📅 ${m.name}</span>
+            </div>
+            <span class="month-badge">Worksheet ${monthWsDone}/${classesInMonth.length}</span>
+          </div>
+          <div class="class-list" id="month-list-${m.key}"></div>
+        `;
+
+        container.appendChild(monthCard);
+        const listEl = monthCard.querySelector(`#month-list-${m.key}`);
+
+        visibleClasses.forEach(c => {
+          const p = state.progress[c.id] || {};
+          const isComplete = p.l && p.w && p.p;
+
+          const item = document.createElement("div");
+          item.className = `class-item ${isComplete ? 'is-done' : ''} ${c.current ? 'is-current' : ''}`;
+
+          item.innerHTML = `
+            <div class="class-left">
+              <span class="class-date">${c.date}</span>
+              <div class="class-details">
+                <div class="class-name">${c.title}</div>
+                <span class="class-tag">${c.tag}</span>
+              </div>
+            </div>
+            <div class="class-actions">
+              <button class="toggle-btn ${p.l ? 'active' : ''}" onclick="toggleTask(${c.id}, 'l')" title="Live Attended">L</button>
+              <button class="toggle-btn ${p.w ? 'active' : ''}" onclick="toggleTask(${c.id}, 'w')" title="Worksheet Submitted">W</button>
+              <button class="toggle-btn ${p.p ? 'active' : ''}" onclick="toggleTask(${c.id}, 'p')" title="Hands-on Practice">P</button>
+            </div>
+          `;
+
+          listEl.appendChild(item);
+        });
+      });
+    }
+
+    function filterClasses(type, btn) {
+      state.currentFilter = type;
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+      renderChecklist();
+    }
+
+    function openProfileModal() {
+      const nameIn = document.getElementById("inputName");
+      const goalIn = document.getElementById("inputGoal");
+      const postIn = document.getElementById("inputPostGoal");
+      if (nameIn) nameIn.value = state.profile.name || "";
+      if (goalIn) goalIn.value = state.profile.goal || 16;
+      if (postIn) postIn.value = state.profile.postGoal || "";
+      const modal = document.getElementById("profileModal");
+      if (modal) modal.style.display = "flex";
+    }
+
+    function closeProfileModal() {
+      const modal = document.getElementById("profileModal");
+      if (modal) modal.style.display = "none";
+    }
+
+    function saveProfile() {
+      const nameIn = document.getElementById("inputName");
+      const goalIn = document.getElementById("inputGoal");
+      const postIn = document.getElementById("inputPostGoal");
+      state.profile.name = nameIn ? nameIn.value || "Student" : "Student";
+      state.profile.goal = goalIn ? parseInt(goalIn.value) || 16 : 16;
+      state.profile.postGoal = postIn ? postIn.value || "" : "";
+      saveState();
+      updateProfileDisplay();
+      closeProfileModal();
+    }
+
+    function updateProfileDisplay() {
+      const nameEl = document.getElementById("profileNameDisplay");
+      const goalEl = document.getElementById("profileGoalDisplay");
+      const avatarEl = document.getElementById("avatarLetter");
+      if (nameEl) nameEl.textContent = state.profile.name || "Student";
+      if (goalEl) goalEl.textContent = `Goal: ${state.profile.postGoal || "Build Pro Generalist advantage"}`;
+      if (avatarEl) avatarEl.textContent = (state.profile.name || "D")[0].toUpperCase();
+    }
+
+    function exportData() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
+      const dlAnchor = document.createElement('a');
+      dlAnchor.setAttribute("href", dataStr);
+      dlAnchor.setAttribute("download", `bootcamp13_progress_${new Date().toISOString().slice(0,10)}.json`);
+      dlAnchor.click();
+    }
+
+    function importData() {
+      const fileIn = document.getElementById("importFileInput");
+      if (fileIn) fileIn.click();
+    }
+
+    function handleFileSelect(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          state = JSON.parse(evt.target.result);
+          saveState();
+          alert("Progress data imported successfully!");
+        } catch (err) {
+          alert("Invalid JSON file.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function resetData() {
+      if (confirm("Are you sure you want to reset all progress data?")) {
+        state.progress = {};
+        saveState();
+      }
+    }
+
+    loadState();
+  </script>
+</body>
+</html>      --accent-yellow: #FBBF24;
+      --accent-yellow-bg: #362E1A;
+      --accent-blue: #60A5FA;
+      --toggle-bg: #2E2E33;
+      --toggle-active: #F4F4F5;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background-color: var(--bg); color: var(--text-main); line-height: 1.5; padding: 40px 20px 80px; }
+    .container { max-width: 960px; margin: 0 auto; }
+    
     /* Lock Screen Overlay */
     .lock-overlay {
       position: fixed;
