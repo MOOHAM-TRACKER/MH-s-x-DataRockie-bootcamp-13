@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Science Bootcamp 13 - Skill Stacking Progress Tracker</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #F4F3EE;
@@ -44,20 +44,75 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
-    body { font-family: 'Inter', 'Kanit', -apple-system, BlinkMacSystemFont, sans-serif; background-color: var(--bg); color: var(--text-main); line-height: 1.5; padding: 40px 20px 80px; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background-color: var(--bg); color: var(--text-main); line-height: 1.5; padding: 40px 20px 80px; }
     .container { max-width: 960px; margin: 0 auto; }
+    
+    /* Lock Screen Overlay */
+    .lock-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--bg);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .lock-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 32px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+    .lock-icon { font-size: 40px; margin-bottom: 12px; }
+    .lock-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .lock-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+    .lock-input {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid var(--card-border);
+      background: var(--bg);
+      color: var(--text-main);
+      border-radius: 8px;
+      font-size: 18px;
+      text-align: center;
+      letter-spacing: 4px;
+      outline: none;
+      margin-bottom: 12px;
+    }
+    .lock-input:focus { border-color: var(--accent-pink); }
+    .lock-btn {
+      width: 100%;
+      background: var(--text-main);
+      color: var(--bg);
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .lock-error { color: #EF4444; font-size: 12px; margin-top: 8px; display: none; }
+
     header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
     .header-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; font-size: 12px; font-weight: 600; color: var(--accent-pink); margin-bottom: 8px; }
     .header-badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-pink); }
     h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; }
     .subtitle { color: var(--text-muted); font-size: 15px; line-height: 1.6; }
+    .header-actions { display: flex; gap: 8px; }
     .theme-toggle-btn { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main); padding: 8px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow-sm); }
+    
     .profile-banner { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 24px; box-shadow: var(--shadow-sm); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
     .profile-info { display: flex; align-items: center; gap: 14px; }
     .profile-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #FF2D75, #F59E0B); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; }
     .profile-details h3 { font-size: 16px; font-weight: 700; }
     .profile-details p { font-size: 13px; color: var(--text-muted); }
     .profile-btn { background: var(--text-main); color: var(--bg); border: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    
     .stacking-gauge-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 20px; margin-bottom: 24px; box-shadow: var(--shadow-sm); }
     .gauge-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .gauge-title { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
@@ -68,6 +123,7 @@
     .stat-label { font-size: 12px; color: var(--text-muted); font-weight: 500; margin-top: 2px; }
     .progress-track { width: 100%; height: 12px; background: var(--toggle-bg); border-radius: 10px; overflow: hidden; margin-top: 10px; }
     .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-pink), var(--accent-yellow), var(--accent-green)); border-radius: 10px; transition: width 0.4s ease; }
+    
     .matrix-section { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 20px; margin-bottom: 24px; box-shadow: var(--shadow-sm); overflow-x: auto; }
     .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
     .section-title { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
@@ -85,6 +141,7 @@
     .matrix-node:hover { transform: scale(1.08); border-color: var(--accent-pink); }
     .matrix-node.completed { background: var(--text-main); color: var(--bg); border-color: var(--text-main); }
     .matrix-node.next-target { border: 2px solid var(--accent-pink); color: var(--accent-pink); background: rgba(255, 45, 117, 0.1); }
+    
     .checklist-section { margin-top: 32px; }
     .filter-bar { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
     .filter-btn { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-muted); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; }
@@ -107,9 +164,11 @@
     .toggle-btn { width: 38px; height: 34px; border-radius: 6px; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-muted); font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
     .toggle-btn:hover { border-color: var(--text-main); }
     .toggle-btn.active { background: var(--text-main); color: var(--bg); border-color: var(--text-main); }
+    
     footer { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--card-border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--text-muted); }
     .footer-actions { display: flex; gap: 10px; }
     .btn-outline { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main); padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 100; align-items: center; justify-content: center; }
     .modal-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 24px; width: 100%; max-width: 440px; box-shadow: var(--shadow-md); }
     .modal-card h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
@@ -121,16 +180,35 @@
   </style>
 </head>
 <body>
+
+  <!-- Password Lock Overlay -->
+  <div class="lock-overlay" id="lockOverlay">
+    <div class="lock-card">
+      <div class="lock-icon">🔒</div>
+      <div class="lock-title">Private Progress Tracker</div>
+      <div class="lock-sub">Please enter your PIN to access this tracker</div>
+      <input type="password" id="pinInput" class="lock-input" placeholder="••••" maxlength="10" onkeydown="if(event.key==='Enter') verifyPin()">
+      <button class="lock-btn" onclick="verifyPin()">Unlock</button>
+      <div class="lock-error" id="lockError">Incorrect PIN. Please try again.</div>
+      <div style="font-size: 11px; color: var(--text-muted); margin-top: 16px;">(Default PIN: 2026)</div>
+    </div>
+  </div>
+
   <div class="container">
     <header>
       <div>
         <div class="header-badge">LIVE BATCH 13 • SKILL STACKING</div>
         <h1>Data Science Bootcamp 13</h1>
-        <p class="subtitle">16 class (5 sep – 12 dec 2026)</p>
+        <p class="subtitle">16 Classes (Sep 5 – Dec 12, 2026) • Key Rule: Complete the worksheet by Sunday after each live session to build Skill Stacking toward The Modern Generalist.</p>
       </div>
-      <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()">
-        <span id="themeIcon">🌙</span> <span id="themeText">Dark</span>
-      </button>
+      <div class="header-actions">
+        <button class="theme-toggle-btn" onclick="lockWebsite()" title="Lock website">
+          🔒 <span>Lock</span>
+        </button>
+        <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()">
+          <span id="themeIcon">🌙</span> <span id="themeText">Dark</span>
+        </button>
+      </div>
     </header>
 
     <div class="profile-banner">
@@ -138,10 +216,10 @@
         <div class="profile-avatar" id="avatarLetter">D</div>
         <div class="profile-details">
           <h3 id="profileNameDisplay">Danaiporn Suktarom</h3>
-          <p id="profileGoalDisplay">PedPRO building in process</p>
+          <p id="profileGoalDisplay">Goal: Combine AI + Data + Research to build a Pro Generalist advantage</p>
         </div>
       </div>
-      <button class="profile-btn" onclick="openProfileModal()">profile</button>
+      <button class="profile-btn" onclick="openProfileModal()">Profile Settings</button>
     </div>
 
     <div class="stacking-gauge-card">
@@ -150,25 +228,25 @@
           <span>⚡ Skill Stacking Level</span>
           <span class="level-badge" id="levelBadge">Level 1 • Apprentice</span>
         </div>
-        <span style="font-size: 13px; font-weight: 700; color: var(--accent-pink);" id="statusBadge">no tasks</span>
+        <span style="font-size: 13px; font-weight: 700; color: var(--accent-pink);" id="statusBadge">On Track • No Pending Worksheets</span>
       </div>
 
       <div class="stats-row">
         <div class="stat-item">
           <div class="stat-num" id="liveCount">0/16</div>
-          <div class="stat-label">complete Live  (L)</div>
+          <div class="stat-label">Live Sessions Attended (L)</div>
         </div>
         <div class="stat-item">
           <div class="stat-num" id="wsCount">0/16</div>
-          <div class="stat-label">complete Worksheet (W)</div>
+          <div class="stat-label">Worksheets Submitted (W)</div>
         </div>
         <div class="stat-item">
           <div class="stat-num" id="practiceCount">0/16</div>
-          <div class="stat-label">complete Practice  (P)</div>
+          <div class="stat-label">Practice Completed (P)</div>
         </div>
         <div class="stat-item">
           <div class="stat-num" id="percentDisplay">0%</div>
-          <div class="stat-label">Progression</div>
+          <div class="stat-label">Overall Completion Rate</div>
         </div>
       </div>
 
@@ -183,9 +261,9 @@
           <span>📊 Activity Matrix Grid (16 Classes)</span>
         </div>
         <div class="matrix-legend">
-          <div class="legend-item"><div class="legend-box legend-completed"></div> เสร็จแล้ว</div>
-          <div class="legend-item"><div class="legend-box legend-active"></div> สัปดาห์ปัจจุบัน</div>
-          <div class="legend-item"><div class="legend-box legend-pending"></div> รอดำเนินการ</div>
+          <div class="legend-item"><div class="legend-box legend-completed"></div> Completed</div>
+          <div class="legend-item"><div class="legend-box legend-active"></div> Current Target</div>
+          <div class="legend-item"><div class="legend-box legend-pending"></div> Pending</div>
         </div>
       </div>
 
@@ -193,10 +271,10 @@
         <thead>
           <tr>
             <th></th>
-            <th colspan="5" class="matrix-month-header"> (Sep)</th>
-            <th colspan="5" class="matrix-month-header"> (Oct)</th>
-            <th colspan="4" class="matrix-month-header"> (Nov)</th>
-            <th colspan="2" class="matrix-month-header"> (Dec)</th>
+            <th colspan="5" class="matrix-month-header">September</th>
+            <th colspan="5" class="matrix-month-header">October</th>
+            <th colspan="4" class="matrix-month-header">November</th>
+            <th colspan="2" class="matrix-month-header">December</th>
           </tr>
           <tr id="matrixColHeaders">
             <th class="row-label">Track</th>
@@ -216,21 +294,21 @@
           <span>📝 Class Checklist</span>
         </div>
         <div style="font-size: 13px; color: var(--text-muted);">
-          <strong>Lesson</strong>: Learning | <strong>Homework</strong>: Homework | <strong>Do it</strong>: Practice
+          <strong>L</strong>: Live Attended | <strong>W</strong>: Worksheet Submitted | <strong>P</strong>: Hands-on Practice
         </div>
       </div>
 
       <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterClasses('all', this)">all (16)</button>
-        <button class="filter-btn" onclick="filterClasses('pending', this)">pending Worksheet</button>
-        <button class="filter-btn" onclick="filterClasses('completed', this)">completed</button>
+        <button class="filter-btn active" onclick="filterClasses('all', this)">All (16)</button>
+        <button class="filter-btn" onclick="filterClasses('pending', this)">Pending Worksheets</button>
+        <button class="filter-btn" onclick="filterClasses('completed', this)">Completed</button>
       </div>
 
       <div id="monthsContainer"></div>
     </div>
 
     <footer>
-      <div>Data Science Bootcamp 13 • Learning System</div>
+      <div>Data Science Bootcamp 13 • Skill Stacking Tracker</div>
       <div class="footer-actions">
         <button class="btn-outline" onclick="exportData()">Export Data (JSON)</button>
         <button class="btn-outline" onclick="importData()">Import Data</button>
@@ -239,329 +317,12 @@
     </footer>
   </div>
 
+  <!-- Profile Settings Modal -->
   <div class="modal-overlay" id="profileModal">
     <div class="modal-card">
-      <h2profile&Goal</h2>
+      <h2>Profile & Privacy Settings</h2>
       <div class="form-group">
-        <label>name</label>
-        <input type="text" id="inputName" placeholder="เช่น Mooham">
+        <label>Learner Name</label>
+        <input type="text" id="inputName" placeholder="e.g. Danaiporn Suktarom">
       </div>
-      <div class="form-group">
-        <label>Goal Worksheet (ปกติ 16)</label>
-        <input type="number" id="inputGoal" value="16">
-      </div>
-      <div class="form-group">
-        <label>Goal at the end of this course</label>
-        <input type="text" id="inputPostGoal" placeholder="เช่น ทำ dashboard ให้ธุรกิจตัวเอง / วิเคราะห์งานวิจัย">
-      </div>
-      <div class="modal-actions">
-        <button class="btn-secondary" onclick="closeProfileModal()">ยกเลิก</button>
-        <button class="profile-btn" onclick="saveProfile()">บันทึกโปรไฟล์</button>
-      </div>
-    </div>
-  </div>
-
-  <input type="file" id="importFileInput" style="display: none;" accept=".json" onchange="handleFileSelect(event)">
-
-  <script>
-    const CLASSES = [
-      { id: 1, date: "5 Sep", title: "1. Intro to Data Science", tag: "Data Literacy", month: "September", replay: true },
-      { id: 2, date: "6 Sep", title: "2. AI Foundation", tag: "AI & LLM", month: "September", replay: true },
-      { id: 3, date: "12 Sep", title: "3. Building a Second Brain", tag: "PKM & Thinking", month: "September", current: true },
-      { id: 4, date: "19 Sep", title: "4. Spreadsheets", tag: "Data Analysis", month: "September" },
-      { id: 5, date: "26 Sep", title: "5. SQL Database", tag: "Database & Query", month: "September" },
-      { id: 6, date: "3 Oct", title: "6. Google Looker Studio", tag: "BI & Dashboard", month: "October" },
-      { id: 7, date: "10 Oct", title: "7. R Programming", tag: "Programming Core", month: "October" },
-      { id: 8, date: "17 Oct", title: "8. Data Transformation", tag: "Data Wrangling", month: "October" },
-      { id: 9, date: "24 Oct", title: "9. Data Visualization", tag: "Storytelling", month: "October" },
-      { id: 10, date: "31 Oct", title: "10. Building Traffic (Web + SEO)", tag: "Web & Growth", month: "October" },
-      { id: 11, date: "7 Nov", title: "11. Essential Statistics", tag: "Inferential Stats", month: "November" },
-      { id: 12, date: "14 Nov", title: "12. AI + Automating Your Work", tag: "AI Automation", month: "November" },
-      { id: 13, date: "21 Nov", title: "13. Essential Machine Learning", tag: "Machine Learning", month: "November" },
-      { id: 14, date: "28 Nov", title: "14. Python Programming", tag: "Python Core", month: "November" },
-      { id: 15, date: "5 Dec", title: "15. Essential Python for Data Analyst", tag: "Advanced Analytics", month: "December" },
-      { id: 16, date: "12 Dec", title: "16. Becoming Pro Generalist", tag: "Pro Generalist", month: "December" }
-    ];
-
-    const MONTHS = [
-      { name: "กันยายน (September)", key: "September" },
-      { name: "ตุลาคม (October)", key: "October" },
-      { name: "พฤศจิกายน (November)", key: "November" },
-      { name: "ธันวาคม (December)", key: "December" }
-    ];
-
-    let state = {
-      profile: {
-        name: "Danaiporn Suktarom",
-        goal: 16,
-        postGoal: "ผสาน AI + Data + Research เพื่อสร้างความได้เปรียบแบบ Pro Generalist"
-      },
-      progress: {},
-      theme: "light",
-      currentFilter: "all"
-    };
-
-    function loadState() {
-      const saved = localStorage.getItem("bootcamp13_tracker_state");
-      if (saved) {
-        try { state = JSON.parse(saved); } catch (e) { console.error(e); }
-      }
-      applyTheme(state.theme || "light");
-      updateProfileDisplay();
-      renderMatrix();
-      renderChecklist();
-      updateMetrics();
-    }
-
-    function saveState() {
-      localStorage.setItem("bootcamp13_tracker_state", JSON.stringify(state));
-      renderMatrix();
-      renderChecklist();
-      updateMetrics();
-    }
-
-    function toggleTheme() {
-      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      applyTheme(next);
-      state.theme = next;
-      localStorage.setItem("bootcamp13_tracker_state", JSON.stringify(state));
-    }
-
-    function applyTheme(theme) {
-      document.documentElement.setAttribute("data-theme", theme);
-      document.getElementById("themeIcon").textContent = theme === "dark" ? "☀️" : "🌙";
-      document.getElementById("themeText").textContent = theme === "dark" ? "Light" : "Dark";
-    }
-
-    function toggleTask(id, type) {
-      if (!state.progress[id]) {
-        state.progress[id] = { l: false, w: false, p: false };
-      }
-      state.progress[id][type] = !state.progress[id][type];
-      saveState();
-    }
-
-    function updateMetrics() {
-      let lDone = 0, wDone = 0, pDone = 0;
-      CLASSES.forEach(c => {
-        const p = state.progress[c.id] || {};
-        if (p.l) lDone++;
-        if (p.w) wDone++;
-        if (p.p) pDone++;
-      });
-
-      document.getElementById("liveCount").textContent = `${lDone}/16`;
-      document.getElementById("wsCount").textContent = `${wDone}/16`;
-      document.getElementById("practiceCount").textContent = `${pDone}/16`;
-
-      const target = state.profile.goal || 16;
-      const pct = Math.round((wDone / target) * 100);
-      document.getElementById("percentDisplay").textContent = `${pct}%`;
-      document.getElementById("progressFill").style.width = `${Math.min(pct, 100)}%`;
-
-      const levelEl = document.getElementById("levelBadge");
-      if (wDone >= 14) {
-        levelEl.textContent = "Level 4 • Pro Generalist";
-        levelEl.style.background = "#D1FAE5";
-        levelEl.style.color = "#065F46";
-      } else if (wDone >= 10) {
-        levelEl.textContent = "Level 3 • Data Practitioner";
-        levelEl.style.background = "#DBEAFE";
-        levelEl.style.color = "#1E40AF";
-      } else if (wDone >= 5) {
-        levelEl.textContent = "Level 2 • Skill Stacker";
-        levelEl.style.background = "#FEF3C7";
-        levelEl.style.color = "#92400E";
-      } else {
-        levelEl.textContent = "Level 1 • Apprentice";
-      }
-
-      const statusEl = document.getElementById("statusBadge");
-      if (wDone >= 2) {
-        statusEl.textContent = "⚡ สปีดดีมาก รักษาความต่อเนื่องไว้!";
-        statusEl.style.color = "var(--accent-green)";
-      } else {
-        statusEl.textContent = "ตามแผนอยู่ ไม่มีงานค้าง 🚀";
-        statusEl.style.color = "var(--accent-pink)";
-      }
-    }
-
-    function renderMatrix() {
-      const colHeaders = document.getElementById("matrixColHeaders");
-      const liveRow = document.getElementById("liveRow");
-      const wsRow = document.getElementById("wsRow");
-      const practiceRow = document.getElementById("practiceRow");
-
-      colHeaders.innerHTML = '<th class="row-label">Track</th>';
-      liveRow.innerHTML = '<td class="row-label">Live (L)</td>';
-      wsRow.innerHTML = '<td class="row-label">Worksheet (W)</td>';
-      practiceRow.innerHTML = '<td class="row-label">Practice (P)</td>';
-
-      CLASSES.forEach(c => {
-        const th = document.createElement("th");
-        th.textContent = c.id;
-        colHeaders.appendChild(th);
-
-        const p = state.progress[c.id] || {};
-
-        const tdL = document.createElement("td");
-        const nodeL = document.createElement("div");
-        nodeL.className = `matrix-node ${p.l ? 'completed' : ''} ${c.current ? 'next-target' : ''}`;
-        nodeL.textContent = p.l ? "✓" : "L";
-        nodeL.onclick = () => toggleTask(c.id, 'l');
-        tdL.appendChild(nodeL);
-        liveRow.appendChild(tdL);
-
-        const tdW = document.createElement("td");
-        const nodeW = document.createElement("div");
-        nodeW.className = `matrix-node ${p.w ? 'completed' : ''}`;
-        nodeW.textContent = p.w ? "✓" : "W";
-        nodeW.onclick = () => toggleTask(c.id, 'w');
-        tdW.appendChild(nodeW);
-        wsRow.appendChild(tdW);
-
-        const tdP = document.createElement("td");
-        const nodeP = document.createElement("div");
-        nodeP.className = `matrix-node ${p.p ? 'completed' : ''}`;
-        nodeP.textContent = p.p ? "✓" : "P";
-        nodeP.onclick = () => toggleTask(c.id, 'p');
-        tdP.appendChild(nodeP);
-        practiceRow.appendChild(tdP);
-      });
-    }
-
-    function renderChecklist() {
-      const container = document.getElementById("monthsContainer");
-      container.innerHTML = "";
-
-      MONTHS.forEach(m => {
-        const classesInMonth = CLASSES.filter(c => c.month === m.key);
-        let monthWsDone = 0;
-        classesInMonth.forEach(c => {
-          if (state.progress[c.id]?.w) monthWsDone++;
-        });
-
-        const visibleClasses = classesInMonth.filter(c => {
-          const p = state.progress[c.id] || {};
-          if (state.currentFilter === "pending") return !p.w;
-          if (state.currentFilter === "completed") return p.l && p.w;
-          return true;
-        });
-
-        if (visibleClasses.length === 0 && state.currentFilter !== "all") return;
-
-        const monthCard = document.createElement("div");
-        monthCard.className = "month-card";
-
-        monthCard.innerHTML = `
-          <div class="month-header">
-            <div class="month-title">
-              <span>📅 ${m.name}</span>
-            </div>
-            <span class="month-badge">Worksheet ${monthWsDone}/${classesInMonth.length}</span>
-          </div>
-          <div class="class-list" id="month-list-${m.key}"></div>
-        `;
-
-        container.appendChild(monthCard);
-        const listEl = monthCard.querySelector(`#month-list-${m.key}`);
-
-        visibleClasses.forEach(c => {
-          const p = state.progress[c.id] || {};
-          const isComplete = p.l && p.w && p.p;
-
-          const item = document.createElement("div");
-          item.className = `class-item ${isComplete ? 'is-done' : ''} ${c.current ? 'is-current' : ''}`;
-
-          item.innerHTML = `
-            <div class="class-left">
-              <span class="class-date">${c.date}</span>
-              <div class="class-details">
-                <div class="class-name">${c.title}</div>
-                <span class="class-tag">${c.tag}</span>
-              </div>
-            </div>
-            <div class="class-actions">
-              <button class="toggle-btn ${p.l ? 'active' : ''}" onclick="toggleTask(${c.id}, 'l')" title="Live Watched">L</button>
-              <button class="toggle-btn ${p.w ? 'active' : ''}" onclick="toggleTask(${c.id}, 'w')" title="Worksheet Submitted">W</button>
-              <button class="toggle-btn ${p.p ? 'active' : ''}" onclick="toggleTask(${c.id}, 'p')" title="Practice Completed">P</button>
-            </div>
-          `;
-
-          listEl.appendChild(item);
-        });
-      });
-    }
-
-    function filterClasses(type, btn) {
-      state.currentFilter = type;
-      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      renderChecklist();
-    }
-
-    function openProfileModal() {
-      document.getElementById("inputName").value = state.profile.name || "";
-      document.getElementById("inputGoal").value = state.profile.goal || 16;
-      document.getElementById("inputPostGoal").value = state.profile.postGoal || "";
-      document.getElementById("profileModal").style.display = "flex";
-    }
-
-    function closeProfileModal() {
-      document.getElementById("profileModal").style.display = "none";
-    }
-
-    function saveProfile() {
-      state.profile.name = document.getElementById("inputName").value || "Student";
-      state.profile.goal = parseInt(document.getElementById("inputGoal").value) || 16;
-      state.profile.postGoal = document.getElementById("inputPostGoal").value || "";
-      saveState();
-      updateProfileDisplay();
-      closeProfileModal();
-    }
-
-    function updateProfileDisplay() {
-      document.getElementById("profileNameDisplay").textContent = state.profile.name || "Student";
-      document.getElementById("profileGoalDisplay").textContent = `เป้าหมาย: ${state.profile.postGoal || "Skill Stacking สู่ Pro Generalist"}`;
-      document.getElementById("avatarLetter").textContent = (state.profile.name || "D")[0].toUpperCase();
-    }
-
-    function exportData() {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
-      const dlAnchor = document.createElement('a');
-      dlAnchor.setAttribute("href", dataStr);
-      dlAnchor.setAttribute("download", `bootcamp13_progress_${new Date().toISOString().slice(0,10)}.json`);
-      dlAnchor.click();
-    }
-
-    function importData() {
-      document.getElementById("importFileInput").click();
-    }
-
-    function handleFileSelect(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        try {
-          state = JSON.parse(evt.target.result);
-          saveState();
-          alert("Import ข้อมูลความก้าวหน้าสำเร็จ!");
-        } catch (err) {
-          alert("ไฟล์ JSON ไม่ถูกต้อง");
-        }
-      };
-      reader.readAsText(file);
-    }
-
-    function resetData() {
-      if (confirm("คุณแน่ใจหรือไม่ว่าต้องการรีเซ็ตข้อมูลความก้าวหน้าทั้งหมด?")) {
-        state.progress = {};
-        saveState();
-      }
-    }
-
-    loadState();
-  </script>
-</body>
-</html>
+      <div class="form-
