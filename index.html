@@ -61,7 +61,6 @@
       margin: 0 auto;
     }
 
-    /* Cards */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -71,7 +70,6 @@
       box-shadow: var(--shadow);
     }
 
-    /* Header */
     header {
       display: flex;
       justify-content: space-between;
@@ -117,7 +115,6 @@
       max-width: 760px;
     }
 
-    /* Buttons */
     .btn {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -136,7 +133,6 @@
     .btn-primary { background: var(--text); color: var(--bg); border-color: var(--text); }
     .btn-danger { color: #EF4444; }
 
-    /* Profile Banner */
     .profile-card {
       display: flex;
       justify-content: space-between;
@@ -164,7 +160,6 @@
       font-size: 18px;
     }
 
-    /* Stats & Gauge */
     .gauge-header {
       display: flex;
       justify-content: space-between;
@@ -224,7 +219,6 @@
       transition: width 0.4s ease;
     }
 
-    /* Activity Matrix */
     .table-responsive { overflow-x: auto; }
     .matrix-table {
       width: 100%;
@@ -300,7 +294,7 @@
       vertical-align: middle;
     }
 
-    /* Checklist */
+    .checklist-section { margin-top: 30px; }
     .filter-bar { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
     .filter-btn {
       background: var(--card-bg);
@@ -404,7 +398,6 @@
       border-color: var(--text);
     }
 
-    /* Modal */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -441,7 +434,6 @@
       outline: none;
     }
 
-    /* Footer */
     footer {
       display: flex;
       justify-content: space-between;
@@ -457,7 +449,6 @@
 </head>
 <body>
   <div class="container">
-    <!-- Header -->
     <header>
       <div>
         <div class="badge badge-live">LIVE BATCH 13 • SKILL STACKING</div>
@@ -467,7 +458,6 @@
       <button class="btn" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
     </header>
 
-    <!-- Profile Banner -->
     <div class="card profile-card">
       <div class="profile-info">
         <div class="avatar" id="userAvatar">D</div>
@@ -479,7 +469,6 @@
       <button class="btn btn-primary" onclick="openModal()">Edit Profile</button>
     </div>
 
-    <!-- Gauge & Summary -->
     <div class="card">
       <div class="gauge-header">
         <div style="display: flex; align-items: center; gap: 8px;">
@@ -499,271 +488,4 @@
           <div class="stat-desc">Worksheets Done (W)</div>
         </div>
         <div class="stat-box">
-          <div class="stat-val" id="countPractice">0/16</div>
-          <div class="stat-desc">Hands-on Practice (P)</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-val" id="countPercent">0%</div>
-          <div class="stat-desc">Completion Rate</div>
-        </div>
-      </div>
-
-      <div class="bar-track">
-        <div class="bar-fill" id="barFill" style="width: 0%;"></div>
-      </div>
-    </div>
-
-    <!-- Activity Matrix Grid -->
-    <div class="card">
-      <div class="gauge-header">
-        <span style="font-weight: 700;">📊 Activity Matrix Grid (16 Classes)</span>
-        <div class="matrix-legend">
-          <span><span class="legend-dot" style="background: var(--text);"></span>Done</span>
-          <span><span class="legend-dot" style="background: var(--pink);"></span>Current</span>
-          <span><span class="legend-dot" style="background: var(--btn-bg); border: 1px solid var(--border);"></span>Pending</span>
-        </div>
-      </div>
-
-      <div class="table-responsive">
-        <table class="matrix-table" id="matrixTable">
-          <thead>
-            <tr>
-              <th></th>
-              <th colspan="5" class="month-col-head">September</th>
-              <th colspan="5" class="month-col-head">October</th>
-              <th colspan="4" class="month-col-head">November</th>
-              <th colspan="2" class="month-col-head">December</th>
-            </tr>
-            <tr id="matrixNums">
-              <th class="matrix-row-label">Track</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr id="rowL"><td class="matrix-row-label">Live (L)</td></tr>
-            <tr id="rowW"><td class="matrix-row-label">Worksheet (W)</td></tr>
-            <tr id="rowP"><td class="matrix-row-label">Practice (P)</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Class Checklist -->
-    <div style="margin-top: 30px;">
-      <div class="gauge-header">
-        <span style="font-weight: 700; font-size: 16px;">📝 Class Checklist</span>
-        <span style="font-size: 12px; color: var(--muted);"><strong>L</strong>: Live | <strong>W</strong>: Worksheet | <strong>P</strong>: Practice</span>
-      </div>
-
-      <div class="filter-bar">
-        <button class="filter-btn active" onclick="setFilter('all', this)">All (16)</button>
-        <button class="filter-btn" onclick="setFilter('pending', this)">Pending Worksheets</button>
-        <button class="filter-btn" onclick="setFilter('completed', this)">Completed</button>
-      </div>
-
-      <div id="checklistRoot"></div>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-      <span>Data Science Bootcamp 13 • Skill Stacking Tracker</span>
-      <div style="display: flex; gap: 8px;">
-        <button class="btn" onclick="exportData()">Export JSON</button>
-        <button class="btn" onclick="document.getElementById('importInput').click()">Import JSON</button>
-        <button class="btn btn-danger" onclick="resetAll()">Reset</button>
-      </div>
-    </footer>
-  </div>
-
-  <!-- Profile Modal -->
-  <div class="modal-backdrop" id="profileModal">
-    <div class="modal">
-      <h2>Profile & Goal Settings</h2>
-      <div class="form-field">
-        <label>Learner Name</label>
-        <input type="text" id="nameInput">
-      </div>
-      <div class="form-field">
-        <label>Worksheet Target Goal</label>
-        <input type="number" id="goalInput" value="16">
-      </div>
-      <div class="form-field">
-        <label>Personal Vision / Why</label>
-        <input type="text" id="visionInput">
-      </div>
-      <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px;">
-        <button class="btn" onclick="closeModal()">Cancel</button>
-        <button class="btn btn-primary" onclick="saveProfile()">Save</button>
-      </div>
-    </div>
-  </div>
-
-  <input type="file" id="importInput" style="display: none;" accept=".json" onchange="handleImport(event)">
-
-  <script>
-    const CLASSES = [
-      { id: 1, date: "Sep 05", title: "1. Intro to Data Science", tag: "Data Literacy", month: "September" },
-      { id: 2, date: "Sep 06", title: "2. AI Foundation", tag: "AI & LLM", month: "September" },
-      { id: 3, date: "Sep 12", title: "3. Building a Second Brain", tag: "PKM & Thinking", month: "September", target: true },
-      { id: 4, date: "Sep 19", title: "4. Spreadsheets", tag: "Data Analysis", month: "September" },
-      { id: 5, date: "Sep 26", title: "5. SQL Database", tag: "Database & Query", month: "September" },
-      { id: 6, date: "Oct 03", title: "6. Google Looker Studio", tag: "BI & Dashboard", month: "October" },
-      { id: 7, date: "Oct 10", title: "7. R Programming", tag: "Programming Core", month: "October" },
-      { id: 8, date: "Oct 17", title: "8. Data Transformation", tag: "Data Wrangling", month: "October" },
-      { id: 9, date: "Oct 24", title: "9. Data Visualization", tag: "Storytelling", month: "October" },
-      { id: 10, date: "Oct 31", title: "10. Building Traffic (Web + SEO)", tag: "Web & Growth", month: "October" },
-      { id: 11, date: "Nov 07", title: "11. Essential Statistics", tag: "Inferential Stats", month: "November" },
-      { id: 12, date: "Nov 14", title: "12. AI + Automating Your Work", tag: "AI Automation", month: "November" },
-      { id: 13, date: "Nov 21", title: "13. Essential Machine Learning", tag: "Machine Learning", month: "November" },
-      { id: 14, date: "Nov 28", title: "14. Python Programming", tag: "Python Core", month: "November" },
-      { id: 15, date: "Dec 05", title: "15. Essential Python for Data Analyst", tag: "Advanced Analytics", month: "December" },
-      { id: 16, date: "Dec 12", title: "16. Becoming Pro Generalist", tag: "Pro Generalist", month: "December" }
-    ];
-
-    const MONTHS = ["September", "October", "November", "December"];
-
-    let state = {
-      profile: {
-        name: "Danaiporn Suktarom",
-        goal: 16,
-        vision: "Combine AI + Data + Research to build a Pro Generalist advantage"
-      },
-      progress: {},
-      theme: "light",
-      filter: "all"
-    };
-
-    function init() {
-      try {
-        const saved = localStorage.getItem("ds_bootcamp13_tracker");
-        if (saved) state = Object.assign(state, JSON.parse(saved));
-      } catch (e) {}
-
-      applyTheme(state.theme);
-      updateProfileUI();
-      buildMatrix();
-      renderChecklist();
-      updateStats();
-    }
-
-    function persist() {
-      try {
-        localStorage.setItem("ds_bootcamp13_tracker", JSON.stringify(state));
-      } catch (e) {}
-      buildMatrix();
-      renderChecklist();
-      updateStats();
-    }
-
-    function toggleTheme() {
-      state.theme = state.theme === "dark" ? "light" : "dark";
-      applyTheme(state.theme);
-      persist();
-    }
-
-    function applyTheme(theme) {
-      document.documentElement.setAttribute("data-theme", theme);
-      const btn = document.getElementById("themeBtn");
-      if (btn) btn.textContent = theme === "dark" ? "☀️ Light" : "🌙 Dark";
-    }
-
-    function toggleTask(id, type) {
-      if (!state.progress[id]) state.progress[id] = { l: false, w: false, p: false };
-      state.progress[id][type] = !state.progress[id][type];
-      persist();
-    }
-
-    function updateStats() {
-      let lCount = 0, wCount = 0, pCount = 0;
-      CLASSES.forEach(c => {
-        const p = state.progress[c.id] || {};
-        if (p.l) lCount++;
-        if (p.w) wCount++;
-        if (p.p) pCount++;
-      });
-
-      document.getElementById("countLive").textContent = `${lCount}/16`;
-      document.getElementById("countWs").textContent = `${wCount}/16`;       document.getElementById("countPractice").textContent = `${pCount}/16`;
-
-      const target = state.profile.goal || 16;
-      const pct = Math.min(Math.round((wCount / target) * 100), 100);
-      document.getElementById("countPercent").textContent = `${pct}\%`;       document.getElementById("barFill").style.width = `${pct}%`;
-
-      const levelEl = document.getElementById("levelTag");
-      if (wCount >= 14) {
-        levelEl.textContent = "Level 4 • Pro Generalist";
-        levelEl.style.background = "#D1FAE5";
-        levelEl.style.color = "#065F46";
-      } else if (wCount >= 10) {
-        levelEl.textContent = "Level 3 • Data Practitioner";
-        levelEl.style.background = "#DBEAFE";
-        levelEl.style.color = "#1E40AF";
-      } else if (wCount >= 5) {
-        levelEl.textContent = "Level 2 • Skill Stacker";
-        levelEl.style.background = "#FEF3C7";
-        levelEl.style.color = "#92400E";
-      } else {
-        levelEl.textContent = "Level 1 • Apprentice";
-        levelEl.style.background = "var(--yellow-bg)";
-        levelEl.style.color = "var(--yellow)";
-      }
-
-      const statusEl = document.getElementById("statusMessage");
-      statusEl.textContent = wCount >= 2 ? "⚡ Great momentum, keep up the streak!" : "On Track • No Pending Worksheets 🚀";
-      statusEl.style.color = wCount >= 2 ? "var(--green)" : "var(--pink)";
-    }
-
-    function buildMatrix() {
-      const headerRow = document.getElementById("matrixNums");
-      const rowL = document.getElementById("rowL");
-      const rowW = document.getElementById("rowW");
-      const rowP = document.getElementById("rowP");
-
-      headerRow.innerHTML = '<th class="matrix-row-label">Track</th>';
-      rowL.innerHTML = '<td class="matrix-row-label">Live (L)</td>';
-      rowW.innerHTML = '<td class="matrix-row-label">Worksheet (W)</td>';
-      rowP.innerHTML = '<td class="matrix-row-label">Practice (P)</td>';
-
-      CLASSES.forEach(c => {
-        const th = document.createElement("th");
-        th.textContent = c.id;
-        headerRow.appendChild(th);
-
-        const p = state.progress[c.id] || {};
-
-        [rowL, rowW, rowP].forEach((row, idx) => {
-          const type = ['l', 'w', 'p'][idx];
-          const td = document.createElement("td");
-          td.className = "matrix-cell";
-          const box = document.createElement("div");
-          box.className = `matrix-box ${p[type] ? 'done' : ''}${c.target && type === 'l' ? 'active-target' : ''}`;
-          box.textContent = p[type] ? "✓" : type.toUpperCase();
-          box.onclick = () => toggleTask(c.id, type);
-          td.appendChild(box);
-          row.appendChild(td);
-        });
-      });
-    }
-
-    function renderChecklist() {
-      const root = document.getElementById("checklistRoot");
-      root.innerHTML = "";
-
-      MONTHS.forEach(month => {
-        const monthClasses = CLASSES.filter(c => c.month === month);
-        let doneWs = 0;
-        monthClasses.forEach(c => { if (state.progress[c.id]?.w) doneWs++; });
-
-        const visible = monthClasses.filter(c => {
-          const p = state.progress[c.id] || {};
-          if (state.filter === "pending") return !p.w;
-          if (state.filter === "completed") return p.l && p.w;
-          return true;
-        });
-
-        if (!visible.length && state.filter !== "all") return;
-
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-          <div class="month-header">
-            <span style="font-
+          <div
