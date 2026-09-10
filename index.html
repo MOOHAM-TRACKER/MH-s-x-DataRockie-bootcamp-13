@@ -5,487 +5,427 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Science Bootcamp 13 - Skill Stacking Tracker</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #F4F3EE;
-      --card-bg: #FFFFFF;
-      --border: #E4E2DD;
-      --text: #18181B;
-      --muted: #71717A;
-      --pink: #FF2D75;
-      --green: #10B981;
-      --yellow: #F59E0B;
-      --yellow-bg: #FEF3C7;
-      --blue: #2563EB;
-      --blue-bg: #EFF6FF;
-      --btn-bg: #E4E2DD;
-      --radius: 12px;
-      --shadow: 0 2px 8px rgba(0,0,0,0.04);
+      --bg: #F4F3EE; --card: #FFFFFF; --border: #E4E2DD;
+      --text: #18181B; --muted: #71717A; --pink: #FF2D75;
+      --green: #10B981; --yellow: #F59E0B; --yellow-bg: #FEF3C7;
+      --blue: #2563EB; --blue-bg: #EFF6FF; --btn: #E4E2DD;
+      --radius: 12px; --shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
-
     [data-theme="dark"] {
-      --bg: #121214;
-      --card-bg: #1C1C1F;
-      --border: #2E2E33;
-      --text: #F4F4F5;
-      --muted: #A1A1AA;
-      --pink: #FF3B81;
-      --green: #34D399;
-      --yellow: #FBBF24;
-      --yellow-bg: #362E1A;
-      --blue: #60A5FA;
-      --blue-bg: #172554;
-      --btn-bg: #2E2E33;
+      --bg: #121214; --card: #1C1C1F; --border: #2E2E33;
+      --text: #F4F4F5; --muted: #A1A1AA; --pink: #FF3B81;
+      --green: #34D399; --yellow: #FBBF24; --yellow-bg: #362E1A;
+      --blue: #60A5FA; --blue-bg: #172554; --btn: #2E2E33;
       --shadow: 0 2px 12px rgba(0,0,0,0.3);
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      padding: 40px 20px 80px;
-    }
-
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: var(--shadow);
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 24px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .badge-live {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      color: var(--pink);
-      margin-bottom: 8px;
-    }
-
-    .badge-live::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--pink);
-    }
-
-    h1 {
-      font-size: 30px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 6px;
-    }
-
-    .subtitle {
-      color: var(--muted);
-      font-size: 14px;
-      max-width: 760px;
-    }
-
-    .btn {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; transition: background 0.2s, border-color 0.2s, color 0.2s; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; padding: 30px 16px 80px; }
+    .container { max-width: 960px; margin: 0 auto; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 18px; box-shadow: var(--shadow); }
+    header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+    .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; background: var(--card); border: 1px solid var(--border); color: var(--pink); margin-bottom: 6px; }
+    .badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--pink); }
+    h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
+    .subtitle { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .btn { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 7px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
     .btn:hover { border-color: var(--text); }
     .btn-primary { background: var(--text); color: var(--bg); border-color: var(--text); }
     .btn-danger { color: #EF4444; }
-
-    .profile-card {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .profile-info {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--pink), var(--yellow));
-      color: #FFF;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 18px;
-    }
-
-    .gauge-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-
-    .level-tag {
-      background: var(--yellow-bg);
-      color: var(--yellow);
-      border: 1px solid var(--yellow);
-      padding: 2px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
-      margin-bottom: 16px;
-    }
-
-    .stat-box {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 16px;
-    }
-
-    .stat-val {
-      font-size: 26px;
-      font-weight: 800;
-      line-height: 1.1;
-    }
-
-    .stat-desc {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 4px;
-      font-weight: 500;
-    }
-
-    .bar-track {
-      width: 100%;
-      height: 10px;
-      background: var(--btn-bg);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--pink), var(--yellow), var(--green));
-      border-radius: 10px;
-      transition: width 0.4s ease;
-    }
-
-    .table-responsive { overflow-x: auto; }
-    .matrix-table {
-      width: 100%;
-      min-width: 740px;
-      border-collapse: separate;
-      border-spacing: 5px;
-    }
-
-    .matrix-table th {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--muted);
-      text-align: center;
-      padding-bottom: 4px;
-    }
-
-    .month-col-head {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text);
-      border-bottom: 2px solid var(--border);
-      padding: 6px 0;
-    }
-
-    .matrix-row-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--muted);
-      text-align: left !important;
-      padding-right: 10px;
-      width: 80px;
-      white-space: nowrap;
-    }
-
-    .matrix-cell { text-align: center; }
-    .matrix-box {
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-      background: var(--btn-bg);
-      border: 1px solid var(--border);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--muted);
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .matrix-box:hover { transform: scale(1.08); border-color: var(--pink); }
+    .profile-card { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .profile-info { display: flex; align-items: center; gap: 12px; }
+    .avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--pink), var(--yellow)); color: #FFF; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; }
+    .gauge-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+    .level-tag { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow); padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 14px; }
+    .stat-box { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; }
+    .stat-val { font-size: 22px; font-weight: 800; line-height: 1.1; }
+    .stat-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .bar-track { width: 100%; height: 8px; background: var(--btn); border-radius: 10px; overflow: hidden; }
+    .bar-fill { height: 100%; background: linear-gradient(90deg, var(--pink), var(--yellow), var(--green)); border-radius: 10px; transition: width 0.3s ease; }
+    .table-scroll { overflow-x: auto; }
+    .matrix-tbl { width: 100%; min-width: 720px; border-collapse: separate; border-spacing: 4px; }
+    .matrix-tbl th { font-size: 11px; font-weight: 600; color: var(--muted); text-align: center; }
+    .m-head { font-size: 11px; font-weight: 700; color: var(--text); border-bottom: 2px solid var(--border); padding: 4px 0; }
+    .row-lbl { font-size: 11px; font-weight: 600; color: var(--muted); text-align: left !important; width: 70px; white-space: nowrap; }
+    .matrix-box { width: 30px; height: 30px; border-radius: 6px; background: var(--btn); border: 1px solid var(--border); display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--muted); cursor: pointer; user-select: none; }
+    .matrix-box:hover { border-color: var(--pink); transform: scale(1.06); }
     .matrix-box.done { background: var(--text); color: var(--bg); border-color: var(--text); }
-    .matrix-box.active-target {
-      border: 2px solid var(--pink);
-      color: var(--pink);
-      background: rgba(255, 45, 117, 0.08);
-    }
-
-    .matrix-legend {
-      display: flex;
-      gap: 12px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 2px;
-      display: inline-block;
-      margin-right: 4px;
-      vertical-align: middle;
-    }
-
-    .checklist-section { margin-top: 30px; }
-    .filter-bar { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
-    .filter-btn {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-    }
-
-    .filter-btn.active {
-      background: var(--text);
-      color: var(--bg);
-      border-color: var(--text);
-      font-weight: 600;
-    }
-
-    .month-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 12px;
-      margin-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .class-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin-bottom: 8px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .class-row.completed {
-      opacity: 0.75;
-      background: transparent;
-    }
-
-    .class-row.completed .class-title {
-      text-decoration: line-through;
-      color: var(--muted);
-    }
-
-    .class-row.target {
-      border: 1.5px solid var(--pink);
-      background: rgba(255, 45, 117, 0.02);
-    }
-
-    .class-main {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex: 1;
-      min-width: 260px;
-    }
-
-    .class-date {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--pink);
-      width: 55px;
-      flex-shrink: 0;
-    }
-
-    .class-title { font-size: 15px; font-weight: 600; }
-    .class-tag {
-      display: inline-block;
-      font-size: 11px;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-weight: 600;
-      background: var(--blue-bg);
-      color: var(--blue);
-      margin-top: 2px;
-    }
-
+    .matrix-box.target { border: 2px solid var(--pink); color: var(--pink); background: rgba(255, 45, 117, 0.08); }
+    .matrix-legend { display: flex; gap: 12px; font-size: 11px; color: var(--muted); }
+    .dot { width: 9px; height: 9px; border-radius: 2px; display: inline-block; margin-right: 4px; vertical-align: middle; }
+    .filter-bar { display: flex; gap: 8px; margin: 16px 0 12px; flex-wrap: wrap; }
+    .filter-btn { background: var(--card); border: 1px solid var(--border); color: var(--muted); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .filter-btn.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+    .month-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .class-row { display: flex; align-items: center; justify-content: space-between; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
+    .class-row.completed { opacity: 0.7; background: transparent; }
+    .class-row.completed .class-title { text-decoration: line-through; color: var(--muted); }
+    .class-row.target { border: 1.5px solid var(--pink); background: rgba(255, 45, 117, 0.03); }
+    .class-main { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 240px; }
+    .class-date { font-size: 11px; font-weight: 700; color: var(--pink); width: 50px; flex-shrink: 0; }
+    .class-title { font-size: 14px; font-weight: 600; }
+    .class-tag { display: inline-block; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 600; background: var(--blue-bg); color: var(--blue); margin-top: 2px; }
     .toggles { display: flex; gap: 6px; }
-    .toggle-btn {
-      width: 36px;
-      height: 32px;
-      border-radius: 6px;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .toggle-btn.on {
-      background: var(--text);
-      color: var(--bg);
-      border-color: var(--text);
-    }
-
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(4px);
-      z-index: 1000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      width: 100%;
-      max-width: 420px;
-      box-shadow: var(--shadow);
-    }
-
-    .modal h2 { font-size: 18px; margin-bottom: 14px; }
-    .form-field { margin-bottom: 14px; }
-    .form-field label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 4px; }
-    .form-field input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      border-radius: 6px;
-      font-size: 14px;
-      outline: none;
-    }
-
-    footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: 13px;
-      color: var(--muted);
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-    }
+    .t-btn { width: 34px; height: 30px; border-radius: 6px; background: var(--card); border: 1px solid var(--border); color: var(--muted); font-size: 11px; font-weight: 700; cursor: pointer; }
+    .t-btn.on { background: var(--text); color: var(--bg); border-color: var(--text); }
+    footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 12px; color: var(--muted); margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 999; display: none; align-items: center; justify-content: center; padding: 20px; }
+    .modal { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; width: 100%; max-width: 380px; box-shadow: var(--shadow); }
+    .modal h2 { font-size: 16px; margin-bottom: 12px; }
+    .f-group { margin-bottom: 12px; }
+    .f-group label { display: block; font-size: 11px; font-weight: 600; margin-bottom: 4px; }
+    .f-group input { width: 100%; padding: 8px 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text); border-radius: 6px; font-size: 13px; outline: none; }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
       <div>
-        <div class="badge badge-live">LIVE BATCH 13 • SKILL STACKING</div>
+        <div class="badge">LIVE BATCH 13 • SKILL STACKING</div>
         <h1>Data Science Bootcamp 13</h1>
-        <p class="subtitle">16 Classes (Sep 5 – Dec 12, 2026) • Complete the worksheet by Sunday after each live session to build your Skill Stacking advantage.</p>
+        <p class="subtitle">16 Classes (Sep 5 – Dec 12, 2026) • Complete the worksheet by Sunday after each live session.</p>
       </div>
       <button class="btn" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
     </header>
 
     <div class="card profile-card">
       <div class="profile-info">
-        <div class="avatar" id="userAvatar">D</div>
+        <div class="avatar" id="avatarLetter">D</div>
         <div>
-          <h3 id="userNameDisplay">Danaiporn Suktarom</h3>
-          <p id="userGoalDisplay" style="font-size: 13px; color: var(--muted);">Goal: Combine AI + Data + Research to build a Pro Generalist advantage</p>
+          <h3 id="nameView" style="font-size: 15px;">Danaiporn Suktarom</h3>
+          <p id="goalView" style="font-size: 12px; color: var(--muted);">Goal: Combine AI + Data + Research to build a Pro Generalist advantage</p>
         </div>
       </div>
       <button class="btn btn-primary" onclick="openModal()">Edit Profile</button>
     </div>
 
     <div class="card">
-      <div class="gauge-header">
+      <div class="gauge-top">
         <div style="display: flex; align-items: center; gap: 8px;">
-          <span style="font-weight: 700;">⚡ Skill Stacking Level</span>
+          <span style="font-weight: 700; font-size: 14px;">⚡ Skill Stacking Level</span>
           <span class="level-tag" id="levelTag">Level 1 • Apprentice</span>
         </div>
-        <span id="statusMessage" style="font-size: 13px; font-weight: 700; color: var(--pink);">On Track • No Pending Worksheets</span>
+        <span id="statusTxt" style="font-size: 12px; font-weight: 700; color: var(--pink);">On Track • No Pending Worksheets 🚀</span>
       </div>
-
       <div class="stats-grid">
-        <div class="stat-box">
-          <div class="stat-val" id="countLive">0/16</div>
-          <div class="stat-desc">Live Attended (L)</div>
+        <div class="stat-box"><div class="stat-val" id="cntL">0/16</div><div class="stat-desc">Live Attended (L)</div></div>
+        <div class="stat-box"><div class="stat-val" id="cntW">0/16</div><div class="stat-desc">Worksheets Done (W)</div></div>
+        <div class="stat-box"><div class="stat-val" id="cntP">0/16</div><div class="stat-desc">Hands-on Practice (P)</div></div>
+        <div class="stat-box"><div class="stat-val" id="cntPct">0%</div><div class="stat-desc">Completion Rate</div></div>
+      </div>
+      <div class="bar-track"><div class="bar-fill" id="fillBar" style="width: 0%;"></div></div>
+    </div>
+
+    <div class="card">
+      <div class="gauge-top">
+        <span style="font-weight: 700; font-size: 14px;">📊 Activity Matrix Grid (16 Classes)</span>
+        <div class="matrix-legend">
+          <span><span class="dot" style="background: var(--text);"></span>Done</span>
+          <span><span class="dot" style="background: var(--pink);"></span>Current</span>
+          <span><span class="dot" style="background: var(--btn); border: 1px solid var(--border);"></span>Pending</span>
         </div>
-        <div class="stat-box">
-          <div class="stat-val" id="countWs">0/16</div>
-          <div class="stat-desc">Worksheets Done (W)</div>
-        </div>
-        <div class="stat-box">
-          <div
+      </div>
+      <div class="table-scroll">
+        <table class="matrix-tbl">
+          <thead>
+            <tr>
+              <th></th>
+              <th colspan="5" class="m-head">September</th>
+              <th colspan="5" class="m-head">October</th>
+              <th colspan="4" class="m-head">November</th>
+              <th colspan="2" class="m-head">December</th>
+            </tr>
+            <tr id="mHeaders"><th class="row-lbl">Track</th></tr>
+          </thead>
+          <tbody>
+            <tr id="rL"><td class="row-lbl">Live (L)</td></tr>
+            <tr id="rW"><td class="row-lbl">Worksheet (W)</td></tr>
+            <tr id="rP"><td class="row-lbl">Practice (P)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="setFilter('all', this)">All (16)</button>
+      <button class="filter-btn" onclick="setFilter('pending', this)">Pending Worksheets</button>
+      <button class="filter-btn" onclick="setFilter('completed', this)">Completed</button>
+    </div>
+
+    <div id="classesRoot"></div>
+
+    <footer>
+      <span>Data Science Bootcamp 13 • Skill Stacking Tracker</span>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn" onclick="exportJSON()">Export JSON</button>
+        <button class="btn" onclick="document.getElementById('importFile').click()">Import JSON</button>
+        <button class="btn btn-danger" onclick="resetProgress()">Reset</button>
+      </div>
+    </footer>
+  </div>
+
+  <div class="modal-backdrop" id="pModal">
+    <div class="modal">
+      <h2>Profile & Goal Settings</h2>
+      <div class="f-group"><label>Learner Name</label><input type="text" id="inName"></div>
+      <div class="f-group"><label>Worksheet Target Goal</label><input type="number" id="inGoal" value="16"></div>
+      <div class="f-group"><label>Personal Vision / Why</label><input type="text" id="inVision"></div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px;">
+        <button class="btn" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="saveProfile()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <input type="file" id="importFile" style="display: none;" accept=".json" onchange="importJSON(event)">
+
+  <script>
+    const CLASSES = [
+      { id: 1, date: "Sep 05", title: "1. Intro to Data Science", tag: "Data Literacy", month: "September" },
+      { id: 2, date: "Sep 06", title: "2. AI Foundation", tag: "AI & LLM", month: "September" },
+      { id: 3, date: "Sep 12", title: "3. Building a Second Brain", tag: "PKM & Thinking", month: "September", target: true },
+      { id: 4, date: "Sep 19", title: "4. Spreadsheets", tag: "Data Analysis", month: "September" },
+      { id: 5, date: "Sep 26", title: "5. SQL Database", tag: "Database & Query", month: "September" },
+      { id: 6, date: "Oct 03", title: "6. Google Looker Studio", tag: "BI & Dashboard", month: "October" },
+      { id: 7, date: "Oct 10", title: "7. R Programming", tag: "Programming Core", month: "October" },
+      { id: 8, date: "Oct 17", title: "8. Data Transformation", tag: "Data Wrangling", month: "October" },
+      { id: 9, date: "Oct 24", title: "9. Data Visualization", tag: "Storytelling", month: "October" },
+      { id: 10, date: "Oct 31", title: "10. Building Traffic (Web + SEO)", tag: "Web & Growth", month: "October" },
+      { id: 11, date: "Nov 07", title: "11. Essential Statistics", tag: "Inferential Stats", month: "November" },
+      { id: 12, date: "Nov 14", title: "12. AI + Automating Your Work", tag: "AI Automation", month: "November" },
+      { id: 13, date: "Nov 21", title: "13. Essential Machine Learning", tag: "Machine Learning", month: "November" },
+      { id: 14, date: "Nov 28", title: "14. Python Programming", tag: "Python Core", month: "November" },
+      { id: 15, date: "Dec 05", title: "15. Essential Python for Data Analyst", tag: "Advanced Analytics", month: "December" },
+      { id: 16, date: "Dec 12", title: "16. Becoming Pro Generalist", tag: "Pro Generalist", month: "December" }
+    ];
+
+    const MONTHS = ["September", "October", "November", "December"];
+    let state = {
+      profile: { name: "Danaiporn Suktarom", goal: 16, vision: "Combine AI + Data + Research to build a Pro Generalist advantage" },
+      progress: {},
+      theme: "light",
+      filter: "all"
+    };
+
+    function init() {
+      try {
+        const saved = localStorage.getItem("ds_bootcamp13_tracker_v2");
+        if (saved) state = Object.assign(state, JSON.parse(saved));
+      } catch (e) {}
+      applyTheme(state.theme);
+      updateProfileUI();
+      renderAll();
+    }
+
+    function persist() {
+      try { localStorage.setItem("ds_bootcamp13_tracker_v2", JSON.stringify(state)); } catch (e) {}
+      renderAll();
+    }
+
+    function renderAll() {
+      buildMatrix();
+      renderChecklist();
+      updateStats();
+    }
+
+    function toggleTheme() {
+      state.theme = state.theme === "dark" ? "light" : "dark";
+      applyTheme(state.theme);
+      persist();
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      document.getElementById("themeBtn").textContent = theme === "dark" ? "☀️ Light" : "🌙 Dark";
+    }
+
+    function toggleTask(id, type) {
+      if (!state.progress[id]) state.progress[id] = { l: false, w: false, p: false };
+      state.progress[id][type] = !state.progress[id][type];
+      persist();
+    }
+
+    function updateStats() {
+      let lCount = 0, wCount = 0, pCount = 0;
+      CLASSES.forEach(c => {
+        const p = state.progress[c.id] || {};
+        if (p.l) lCount++;
+        if (p.w) wCount++;
+        if (p.p) pCount++;
+      });
+
+      document.getElementById("cntL").textContent = `${lCount}/16`;
+      document.getElementById("cntW").textContent = `${wCount}/16`;
+      document.getElementById("cntP").textContent = `${pCount}/16`;
+
+      const target = state.profile.goal || 16;
+      const pct = Math.min(Math.round((wCount / target) * 100), 100);
+      document.getElementById("cntPct").textContent = `${pct}%`;
+      document.getElementById("fillBar").style.width = `${pct}%`;
+
+      const tag = document.getElementById("levelTag");
+      if (wCount >= 14) { tag.textContent = "Level 4 • Pro Generalist"; tag.style.background = "#D1FAE5"; tag.style.color = "#065F46"; }
+      else if (wCount >= 10) { tag.textContent = "Level 3 • Data Practitioner"; tag.style.background = "#DBEAFE"; tag.style.color = "#1E40AF"; }
+      else if (wCount >= 5) { tag.textContent = "Level 2 • Skill Stacker"; tag.style.background = "#FEF3C7"; tag.style.color = "#92400E"; }
+      else { tag.textContent = "Level 1 • Apprentice"; tag.style.background = "var(--yellow-bg)"; tag.style.color = "var(--yellow)"; }
+
+      const st = document.getElementById("statusTxt");
+      st.textContent = wCount >= 2 ? "⚡ Great momentum, keep up the streak!" : "On Track • No Pending Worksheets 🚀";
+      st.style.color = wCount >= 2 ? "var(--green)" : "var(--pink)";
+    }
+
+    function buildMatrix() {
+      const hRow = document.getElementById("mHeaders");
+      const rL = document.getElementById("rL");
+      const rW = document.getElementById("rW");
+      const rP = document.getElementById("rP");
+
+      hRow.innerHTML = '<th class="row-lbl">Track</th>';
+      rL.innerHTML = '<td class="row-lbl">Live (L)</td>';
+      rW.innerHTML = '<td class="row-lbl">Worksheet (W)</td>';
+      rP.innerHTML = '<td class="row-lbl">Practice (P)</td>';
+
+      CLASSES.forEach(c => {
+        const th = document.createElement("th");
+        th.textContent = c.id;
+        hRow.appendChild(th);
+
+        const p = state.progress[c.id] || {};
+        [rL, rW, rP].forEach((row, i) => {
+          const type = ['l', 'w', 'p'][i];
+          const td = document.createElement("td");
+          td.style.textAlign = "center";
+          const box = document.createElement("div");
+          box.className = `matrix-box ${p[type] ? 'done' : ''} ${c.target && type === 'l' ? 'target' : ''}`;
+          box.textContent = p[type] ? "✓" : type.toUpperCase();
+          box.onclick = () => toggleTask(c.id, type);
+          td.appendChild(box);
+          row.appendChild(td);
+        });
+      });
+    }
+
+    function renderChecklist() {
+      const root = document.getElementById("classesRoot");
+      root.innerHTML = "";
+
+      MONTHS.forEach(month => {
+        const list = CLASSES.filter(c => c.month === month);
+        let doneWs = 0;
+        list.forEach(c => { if (state.progress[c.id]?.w) doneWs++; });
+
+        const visible = list.filter(c => {
+          const p = state.progress[c.id] || {};
+          if (state.filter === "pending") return !p.w;
+          if (state.filter === "completed") return p.l && p.w;
+          return true;
+        });
+
+        if (!visible.length && state.filter !== "all") return;
+
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="month-header">
+            <span style="font-weight: 700; font-size: 15px;">📅 ${month}</span>
+            <span class="btn" style="padding: 2px 8px; font-size: 11px; cursor: default;">Worksheet ${doneWs}/${list.length}</span>
+          </div>
+          <div class="classes-list"></div>
+        `;
+
+        const clDiv = card.querySelector(".classes-list");
+        visible.forEach(c => {
+          const p = state.progress[c.id] || {};
+          const isAllDone = p.l && p.w && p.p;
+
+          const row = document.createElement("div");
+          row.className = `class-row ${isAllDone ? 'completed' : ''} ${c.target ? 'target' : ''}`;
+          row.innerHTML = `
+            <div class="class-main">
+              <span class="class-date">${c.date}</span>
+              <div>
+                <div class="class-title">${c.title}</div>
+                <span class="class-tag">${c.tag}</span>
+              </div>
+            </div>
+            <div class="toggles">
+              <button class="t-btn ${p.l ? 'on' : ''}" onclick="toggleTask(${c.id}, 'l')" title="Live Attended">L</button>
+              <button class="t-btn ${p.w ? 'on' : ''}" onclick="toggleTask(${c.id}, 'w')" title="Worksheet Done">W</button>
+              <button class="t-btn ${p.p ? 'on' : ''}" onclick="toggleTask(${c.id}, 'p')" title="Practice Completed">P</button>
+            </div>
+          `;
+          clDiv.appendChild(row);
+        });
+
+        root.appendChild(card);
+      });
+    }
+
+    function setFilter(type, btn) {
+      state.filter = type;
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderChecklist();
+    }
+
+    function openModal() {
+      document.getElementById("inName").value = state.profile.name || "";
+      document.getElementById("inGoal").value = state.profile.goal || 16;
+      document.getElementById("inVision").value = state.profile.vision || "";
+      document.getElementById("pModal").style.display = "flex";
+    }
+
+    function closeModal() { document.getElementById("pModal").style.display = "none"; }
+
+    function saveProfile() {
+      state.profile.name = document.getElementById("inName").value.trim() || "Student";
+      state.profile.goal = parseInt(document.getElementById("inGoal").value) || 16;
+      state.profile.vision = document.getElementById("inVision").value.trim();
+      updateProfileUI();
+      persist();
+      closeModal();
+    }
+
+    function updateProfileUI() {
+      document.getElementById("nameView").textContent = state.profile.name;
+      document.getElementById("goalView").textContent = `Goal: ${state.profile.vision || "Build Pro Generalist advantage"}`;
+      document.getElementById("avatarLetter").textContent = (state.profile.name[0] || "D").toUpperCase();
+    }
+
+    function exportJSON() {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `bootcamp13_tracker_${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+    }
+
+    function importJSON(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const r = new FileReader();
+      r.onload = ev => {
+        try {
+          state = JSON.parse(ev.target.result);
+          persist();
+          updateProfileUI();
+          alert("Progress restored!");
+        } catch (err) { alert("Invalid file."); }
+      };
+      r.readAsText(file);
+    }
+
+    function resetProgress() {
+      if (confirm("Reset all checkboxes?")) {
+        state.progress = {};
+        persist();
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>
